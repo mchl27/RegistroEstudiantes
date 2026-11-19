@@ -25,6 +25,11 @@ public sealed class EnrollmentsController : ControllerBase
 
     /// <summary>Inscribe exactamente 3 materias con profesores distintos (reglas 5 y 7).</summary>
     [HttpPut("me")]
+    [ProducesResponseType(typeof(MyEnrollmentDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
     public async Task<ActionResult<MyEnrollmentDto>> Enroll(EnrollRequest request, CancellationToken ct) =>
         Ok(await _enrollments.EnrollAsync(User.GetStudentId(), request, ct));
 }

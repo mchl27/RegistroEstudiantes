@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using RegistroEstudiantes.Api.ExceptionHandling;
 using RegistroEstudiantes.Api.Extensions;
 using RegistroEstudiantes.Application;
@@ -13,7 +14,8 @@ var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(connectionString);
 builder.Services.AddJwtAuthentication(builder.Configuration);
-builder.Services.AddControllers();
+// La API solo habla JSON: así Swagger envía "Accept: application/json"
+builder.Services.AddControllers(o => o.Filters.Add(new ProducesAttribute("application/json")));
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddSwaggerWithJwt();

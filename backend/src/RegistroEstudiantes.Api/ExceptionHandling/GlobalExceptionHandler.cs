@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -54,12 +55,23 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         problem.Extensions["code"] = code;
 
         context.Response.StatusCode = status;
-        return await _problemDetails.TryWriteAsync(new ProblemDetailsContext
+        var written = await _problemDetails.TryWriteAsync(new ProblemDetailsContext
         {
             HttpContext = context,
             ProblemDetails = problem,
             Exception = exception
         });
+
+        // Si el cliente pidió otro formato (ej. Accept: text/plain), igual respondemos
+        // el error real en JSON en vez de dejar que ASP.NET escriba un 500 genérico.
+        if (!written)
+        {
+            problem.Extensions["traceId"] = Activity.Current?.Id ?? context.TraceIdentifier;
+            await context.Response.WriteAsJsonAsync(problem, problem.GetType(),
+                options: null, contentType: "application/problem+json", cancellationToken: ct);
+        }
+
+        return true;
     }
 
     private static string ToCamelCase(string name) =>
