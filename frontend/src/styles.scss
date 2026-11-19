@@ -996,6 +996,12 @@ code {
   .nav {
     order: 3;
     flex-basis: 100%;
+    gap: 2px;
+  }
+
+  .nav__link {
+    padding: 8px;
+    font-size: 0.88rem;
   }
 
   .summary {
@@ -1039,5 +1045,12 @@ code {
 
   .professors {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 359px) {
+  .nav__link {
+    padding: 8px 6px;
+    font-size: 0.8rem;
   }
 }
