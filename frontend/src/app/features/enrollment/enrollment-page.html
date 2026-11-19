@@ -1,0 +1,112 @@
+<header class="page-header">
+  <div>
+    <h1>Inscripción de materias</h1>
+    <p class="muted">
+      Elige <strong>3 materias</strong> ({{ totalCredits }} créditos) con
+      <strong>profesores distintos</strong>. Cada profesor dicta 2 materias: solo puedes tomar una de ellas.
+    </p>
+  </div>
+</header>
+
+@if (loading()) {
+  <div class="card skeleton" aria-busy="true">Cargando materias…</div>
+} @else {
+  <section class="card summary" aria-label="Resumen de la inscripción">
+    <div class="summary__credits">
+      <span class="summary__value">{{ credits() }}<small>/{{ totalCredits }}</small></span>
+      <span class="muted small">créditos</span>
+    </div>
+
+    <div class="summary__body">
+      <div class="progress" role="progressbar" [attr.aria-valuenow]="credits()" aria-valuemin="0" [attr.aria-valuemax]="totalCredits">
+        <div class="progress__bar" [style.width.%]="(credits() / totalCredits) * 100"></div>
+      </div>
+      <div class="slots">
+        @for (slot of slots(); track $index) {
+          @if (slot) {
+            <span class="slot slot--filled">
+              {{ slot.name }}
+              <button type="button" class="slot__remove" (click)="toggle(slot)" [attr.aria-label]="'Quitar ' + slot.name">×</button>
+            </span>
+          } @else {
+            <span class="slot">Materia {{ $index + 1 }}</span>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="summary__actions">
+      @if (hasChanges() && saved().length) {
+        <button type="button" class="btn btn--ghost" (click)="reset()" [disabled]="saving()">Deshacer</button>
+      }
+      <button type="button" class="btn btn--primary" (click)="save()" [disabled]="!isComplete() || !hasChanges() || saving()">
+        {{ saving() ? 'Guardando…' : 'Guardar inscripción' }}
+      </button>
+    </div>
+  </section>
+
+  @if (error()) {
+    <div class="alert alert--error" role="alert">{{ error() }}</div>
+  }
+  @if (success()) {
+    <div class="alert alert--success" role="status">
+      ¡Inscripción guardada! Ya puedes ver a tus compañeros en <a routerLink="/mis-clases">Mis clases</a>.
+    </div>
+  }
+  @if (!saved().length && !selected().length) {
+    <div class="alert alert--info">Aún no tienes materias inscritas. Selecciona 3 para completar tus 9 créditos.</div>
+  }
+
+  <section class="professors">
+    @for (group of groups(); track group.professorId) {
+      <article class="card professor">
+        <header class="professor__header">
+          <span class="avatar" aria-hidden="true">{{ initials(group.professorName) }}</span>
+          <div>
+            <h3>{{ group.professorName }}</h3>
+            <span class="muted small">Profesor · {{ group.subjects.length }} materias</span>
+          </div>
+        </header>
+
+        <div class="professor__subjects">
+          @for (subject of group.subjects; track subject.id) {
+            @let state = stateOf(subject);
+            <button
+              type="button"
+              class="subject"
+              [attr.data-state]="state"
+              [attr.aria-pressed]="state === 'selected'"
+              [disabled]="state === 'professor-taken' || state === 'limit-reached'"
+              (click)="toggle(subject)"
+            >
+              <span class="subject__top">
+                <span class="subject__code">{{ subject.code }}</span>
+                <span class="subject__credits">{{ subject.credits }} créditos</span>
+              </span>
+              <span class="subject__name">{{ subject.name }}</span>
+              @if (subject.description) {
+                <span class="subject__desc">{{ subject.description }}</span>
+              }
+              <span class="subject__foot">
+                @switch (state) {
+                  @case ('selected') {
+                    <span class="tag tag--ok">✓ Seleccionada</span>
+                  }
+                  @case ('professor-taken') {
+                    <span class="tag tag--warn">Ya tienes una clase con este profesor</span>
+                  }
+                  @case ('limit-reached') {
+                    <span class="tag">Ya elegiste 3 materias</span>
+                  }
+                  @default {
+                    <span class="tag tag--muted">{{ subject.enrolledCount }} inscritos</span>
+                  }
+                }
+              </span>
+            </button>
+          }
+        </div>
+      </article>
+    }
+  </section>
+}

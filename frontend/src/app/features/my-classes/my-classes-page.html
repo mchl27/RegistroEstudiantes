@@ -1,0 +1,45 @@
+<header class="page-header">
+  <div>
+    <h1>Mis clases</h1>
+    <p class="muted">Tus materias inscritas y los compañeros con quienes compartirás cada clase.</p>
+  </div>
+  @if (enrollment(); as data) {
+    <span class="badge badge--accent">{{ data.totalCredits }}/{{ data.requiredCredits }} créditos</span>
+  }
+</header>
+
+@if (loading()) {
+  <div class="card skeleton" aria-busy="true">Cargando tus clases…</div>
+} @else if (error()) {
+  <div class="alert alert--error" role="alert">{{ error() }}</div>
+} @else if (!enrollment()?.classes?.length) {
+  <div class="card empty">
+    <h2>Aún no tienes materias inscritas</h2>
+    <p class="muted">Inscribe 3 materias para ver a tus compañeros de clase.</p>
+    <a class="btn btn--primary" routerLink="/inscripcion">Inscribir materias</a>
+  </div>
+} @else {
+  <div class="grid">
+    @for (item of enrollment()!.classes; track item.subjectId) {
+      <article class="card class-card">
+        <span class="subject__code">{{ item.code }}</span>
+        <h3>{{ item.name }}</h3>
+        <p class="muted small">{{ item.professorName }} · {{ item.credits }} créditos</p>
+
+        <h4 class="class-card__label">Compañeros ({{ item.classmates.length }})</h4>
+        @if (item.classmates.length) {
+          <ul class="people">
+            @for (name of item.classmates; track $index) {
+              <li>
+                <span class="avatar avatar--sm" aria-hidden="true">{{ initials(name) }}</span>
+                {{ name }}
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="muted small">Aún nadie más se ha inscrito en esta clase.</p>
+        }
+      </article>
+    }
+  </div>
+}

@@ -1,0 +1,88 @@
+<header class="page-header">
+  <div>
+    <h1>Mi perfil</h1>
+    <p class="muted">Consulta y actualiza tus datos de registro.</p>
+  </div>
+</header>
+
+@if (loading()) {
+  <div class="card skeleton" aria-busy="true">Cargando tu perfil…</div>
+} @else {
+  <div class="profile">
+    <form class="card profile__form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <h2>Datos personales</h2>
+
+      @if (error()) {
+        <div class="alert alert--error" role="alert">{{ error() }}</div>
+      }
+      @if (success()) {
+        <div class="alert alert--success" role="status">{{ success() }}</div>
+      }
+
+      <div class="form-row">
+        <label class="field">
+          <span class="field__label">Nombre</span>
+          <input formControlName="firstName" autocomplete="given-name" />
+          @if (fieldError('firstName'); as message) {
+            <span class="field__error">{{ message }}</span>
+          }
+        </label>
+        <label class="field">
+          <span class="field__label">Apellido</span>
+          <input formControlName="lastName" autocomplete="family-name" />
+          @if (fieldError('lastName'); as message) {
+            <span class="field__error">{{ message }}</span>
+          }
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="field">
+          <span class="field__label">Número de documento</span>
+          <input formControlName="documentNumber" inputmode="numeric" />
+          @if (fieldError('documentNumber'); as message) {
+            <span class="field__error">{{ message }}</span>
+          }
+        </label>
+        <label class="field">
+          <span class="field__label">Correo</span>
+          <input type="email" formControlName="email" autocomplete="email" />
+          @if (fieldError('email'); as message) {
+            <span class="field__error">{{ message }}</span>
+          }
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--primary" type="submit" [disabled]="saving() || form.pristine">
+          {{ saving() ? 'Guardando…' : 'Guardar cambios' }}
+        </button>
+      </div>
+    </form>
+
+    <section class="card danger">
+      <h2>Eliminar cuenta</h2>
+      <p class="muted">
+        Se eliminará tu registro y se liberarán tus cupos en las materias inscritas.
+      </p>
+
+      @if (!confirmDelete()) {
+        <button type="button" class="btn btn--danger-outline" (click)="confirmDelete.set(true)">
+          Eliminar mi cuenta
+        </button>
+      } @else {
+        <div class="danger__confirm">
+          <strong>¿Seguro que quieres eliminar tu cuenta?</strong>
+          <div class="danger__actions">
+            <button type="button" class="btn btn--ghost" (click)="confirmDelete.set(false)" [disabled]="deleting()">
+              Cancelar
+            </button>
+            <button type="button" class="btn btn--danger" (click)="deleteAccount()" [disabled]="deleting()">
+              {{ deleting() ? 'Eliminando…' : 'Sí, eliminar' }}
+            </button>
+          </div>
+        </div>
+      }
+    </section>
+  </div>
+}

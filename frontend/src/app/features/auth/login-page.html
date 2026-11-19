@@ -1,0 +1,55 @@
+<div class="auth">
+  <app-auth-hero />
+
+  <section class="auth__panel">
+    <div class="card auth__card">
+      <h2>Iniciar sesión</h2>
+      <p class="muted">Ingresa con tu correo y contraseña.</p>
+
+      @if (notice) {
+        <div class="alert alert--info">{{ notice }}</div>
+      }
+      @if (error()) {
+        <div class="alert alert--error" role="alert">{{ error() }}</div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <label class="field">
+          <span class="field__label">Correo</span>
+          <input type="email" formControlName="email" autocomplete="email" placeholder="tu@correo.com" />
+          @if (fieldError('email'); as message) {
+            <span class="field__error">{{ message }}</span>
+          }
+        </label>
+
+        <label class="field">
+          <span class="field__label">Contraseña</span>
+          <input type="password" formControlName="password" autocomplete="current-password" />
+          @if (fieldError('password'); as message) {
+            <span class="field__error">{{ message }}</span>
+          }
+        </label>
+
+        <button class="btn btn--primary btn--block" type="submit" [disabled]="loading()">
+          {{ loading() ? 'Ingresando…' : 'Ingresar' }}
+        </button>
+      </form>
+
+      <p class="auth__switch">¿No tienes cuenta? <a routerLink="/registro">Regístrate</a></p>
+    </div>
+
+    <div class="card demo">
+      <p class="demo__title">
+        Cuentas de demostración
+        <span class="muted">· contraseña <code>{{ demoPassword }}</code></span>
+      </p>
+      <div class="chips">
+        @for (account of demoAccounts; track account.email) {
+          <button type="button" class="chip chip--button" (click)="useDemo(account.email)">
+            {{ account.name }}
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+</div>
