@@ -1,25 +1,47 @@
+using RegistroEstudiantes.Api.ExceptionHandling;
+using RegistroEstudiantes.Api.Extensions;
+using RegistroEstudiantes.Application;
+using RegistroEstudiantes.Infrastructure;
+using RegistroEstudiantes.Infrastructure.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("Default")
+    ?? throw new InvalidOperationException("Falta 'ConnectionStrings:Default' en appsettings.");
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
 
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(connectionString);
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddSwaggerWithJwt();
+builder.Services.AddCors(o => o.AddDefaultPolicy(p => p.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseExceptionHandler();
+app.UseStatusCodePages();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.DocumentTitle = "Registro de Estudiantes API");
 }
 
-app.UseHttpsRedirection();
+if (app.Configuration.GetValue<bool>("SeedDemoData"))
+{
+    using var scope = app.Services.CreateScope();
+    await scope.ServiceProvider.GetRequiredService<DemoDataSeeder>().SeedAsync();
+}
 
+app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
+
+// Permite usar WebApplicationFactory<Program> en tests de integración
+public partial class Program;

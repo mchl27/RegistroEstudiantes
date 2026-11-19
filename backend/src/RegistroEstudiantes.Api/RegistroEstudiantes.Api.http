@@ -1,6 +1,36 @@
-@RegistroEstudiantes.Api_HostAddress = http://localhost:5247
+@api = http://localhost:5080
 
-GET {{RegistroEstudiantes.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### Catálogo de materias (público)
+GET {{api}}/api/subjects
+
+### Login con estudiante de demostración
+# @name login
+POST {{api}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "ana.garcia@registro.test", "password": "Demo1234" }
 
 ###
+@token = {{login.response.body.$.token}}
+
+### Mis clases y compañeros (regla 9)
+GET {{api}}/api/enrollments/me
+Authorization: Bearer {{token}}
+
+### Inscribir 3 materias con profesores distintos (reglas 5 y 7)
+PUT {{api}}/api/enrollments/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "subjectIds": [1, 4, 7] }
+
+### Intento inválido: dos materias del mismo profesor
+PUT {{api}}/api/enrollments/me
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "subjectIds": [1, 2, 7] }
+
+### Directorio de estudiantes (regla 8)
+GET {{api}}/api/students
+Authorization: Bearer {{token}}
