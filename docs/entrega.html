@@ -5,431 +5,262 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Registro de Estudiantes · Documento de entrega</title>
 <style>
-  :root {
-    --text: #1b1f27; --muted: #5f6775; --border: #e3e6eb; --soft: #f5f6f8;
-    --accent: #e8590c; --accent-soft: #fff1e8; --ok: #138a52; --ok-soft: #e7f6ee; --dark: #14161b;
-  }
-  @page { size: A4; margin: 16mm 15mm 18mm; }
+  :root { --text:#1f232b; --muted:#5f6775; --border:#e3e6eb; --soft:#f5f6f8; --accent:#d9480f; --dark:#16181d; }
+  @page { size: A4; margin: 18mm 17mm 20mm; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: #fff; color: var(--text); font: 10.5pt/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
-  main { max-width: 820px; margin: 0 auto; padding: 0 16px; }
-  h1 { font-size: 26pt; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.01em; }
-  h2 { font-size: 15pt; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 2px solid var(--accent); break-after: avoid; }
-  h3 { font-size: 11.5pt; margin: 18px 0 6px; break-after: avoid; }
-  p { margin: 0 0 8px; }
-  ul, ol { margin: 0 0 10px; padding-left: 20px; }
-  li { margin-bottom: 3px; }
-  code { font-family: Consolas, 'Cascadia Mono', monospace; font-size: 9pt; background: var(--soft); border-radius: 3px; padding: 0 4px; }
-  pre { font-family: Consolas, 'Cascadia Mono', monospace; font-size: 8.8pt; background: var(--dark); color: #e7e9ee; border-radius: 6px; padding: 10px 12px; margin: 0 0 10px; white-space: pre-wrap; break-inside: avoid; }
-  table { width: 100%; border-collapse: collapse; margin: 0 0 12px; font-size: 9.2pt; break-inside: auto; }
-  th, td { border: 1px solid var(--border); padding: 5px 7px; text-align: left; vertical-align: top; }
-  th { background: var(--soft); font-weight: 600; }
-  tr { break-inside: avoid; }
-  .muted { color: var(--muted); }
-  .ok { color: var(--ok); font-weight: 700; }
-  .tag { display: inline-block; background: var(--accent-soft); color: #c2410c; border-radius: 4px; padding: 0 6px; font-weight: 600; font-size: 8.8pt; }
-  .callout { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 8px 12px; border-radius: 0 6px 6px 0; margin: 0 0 12px; break-inside: avoid; }
-  .page-break { break-before: page; }
-  figure { margin: 0 0 14px; break-inside: avoid; }
-  figure img { width: 100%; border: 1px solid var(--border); border-radius: 6px; display: block; }
-  figcaption { font-size: 8.8pt; color: var(--muted); margin-top: 4px; text-align: center; }
-  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .shots--mobile { grid-template-columns: 1fr 1fr 1fr; align-items: start; }
-  .shots--mobile img { max-height: 360px; object-fit: cover; object-position: top; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .card { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; break-inside: avoid; }
-  .card h3 { margin-top: 0; }
-
-  /* Portada */
-  .cover { min-height: 250mm; display: flex; flex-direction: column; justify-content: space-between; padding: 24mm 0 6mm; }
-  .cover__brand { display: inline-grid; place-items: center; width: 54px; height: 54px; border-radius: 14px; background: var(--accent); color: #fff; font-weight: 800; font-size: 15pt; }
-  .cover__kicker { color: var(--accent); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 9.5pt; margin: 28px 0 6px; }
-  .cover__lead { font-size: 12.5pt; color: var(--muted); max-width: 560px; }
-  .cover__meta { display: grid; grid-template-columns: 150px 1fr; gap: 6px 14px; font-size: 10pt; border-top: 1px solid var(--border); padding-top: 14px; }
-  .cover__meta dt { color: var(--muted); }
-  .cover__meta dd { margin: 0; font-weight: 600; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 26px 0; }
-  .stat { border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
-  .stat b { display: block; font-size: 20pt; color: var(--accent); line-height: 1.1; }
-  .stat span { font-size: 8.8pt; color: var(--muted); }
-
-  /* Diagramas */
-  .diagram { width: 100%; height: auto; margin: 4px 0 12px; break-inside: avoid; }
-  .diagram text { font-family: system-ui, 'Segoe UI', Arial, sans-serif; }
-
-  @media screen { body { background: #eef0f3; } main { background: #fff; padding: 24px 40px 40px; margin: 20px auto; box-shadow: 0 2px 12px rgb(0 0 0 / 8%); } }
-  @media print { main { padding: 0; max-width: none; } }
-  @media (max-width: 640px) { .shots, .grid-2, .stats, .shots--mobile { grid-template-columns: 1fr; } main { padding: 16px; } }
+  body { margin:0; background:#fff; color:var(--text); font:10.5pt/1.6 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif; }
+  main { max-width:800px; margin:0 auto; padding:0 16px; }
+  h1 { font-size:22pt; line-height:1.2; margin:0 0 6px; }
+  h2 { font-size:14pt; margin:26px 0 8px; break-after:avoid; }
+  h2 small { color:var(--accent); font-weight:600; margin-right:6px; }
+  h3 { font-size:11pt; margin:16px 0 4px; break-after:avoid; }
+  p { margin:0 0 8px; }
+  ul, ol { margin:0 0 10px; padding-left:20px; }
+  li { margin-bottom:3px; }
+  code { font-family:Consolas, 'Cascadia Mono', monospace; font-size:9pt; background:var(--soft); border-radius:3px; padding:0 4px; }
+  pre { font-family:Consolas, 'Cascadia Mono', monospace; font-size:8.8pt; background:var(--dark); color:#e7e9ee; border-radius:6px; padding:10px 12px; margin:0 0 10px; white-space:pre-wrap; break-inside:avoid; }
+  table { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:9.3pt; }
+  th, td { border:1px solid var(--border); padding:5px 7px; text-align:left; vertical-align:top; }
+  th { background:var(--soft); font-weight:600; }
+  tr { break-inside:avoid; }
+  .muted { color:var(--muted); }
+  .page-break { break-before:page; }
+  figure { margin:0 0 14px; break-inside:avoid; }
+  figure img { width:100%; border:1px solid var(--border); border-radius:4px; display:block; }
+  figcaption { font-size:8.8pt; color:var(--muted); margin-top:4px; }
+  .shots { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .shots--mobile { grid-template-columns:1fr 1fr 1fr; align-items:start; }
+  .shots--mobile img { max-height:340px; object-fit:cover; object-position:top; }
+  .diagram { width:100%; height:auto; margin:4px 0 10px; break-inside:avoid; }
+  .diagram text { font-family:'Segoe UI', Arial, sans-serif; }
+  .head { border-bottom:2px solid var(--accent); padding-bottom:14px; margin:6px 0 18px; }
+  .head p { color:var(--muted); margin:0; }
+  .meta { display:grid; grid-template-columns:120px 1fr; gap:3px 12px; font-size:9.8pt; margin-top:12px; }
+  .meta dt { color:var(--muted); } .meta dd { margin:0; }
+  @media screen { body { background:#eef0f3; } main { background:#fff; padding:28px 44px 40px; margin:20px auto; box-shadow:0 2px 12px rgb(0 0 0 / 8%); } }
+  @media print { main { padding:0; max-width:none; } }
+  @media (max-width:640px) { .shots, .shots--mobile { grid-template-columns:1fr; } main { padding:16px; } }
 </style>
 </head>
 <body>
 <main>
 
-<!-- ============================================================ PORTADA -->
-<section class="cover">
-  <div>
-    <span class="cover__brand">RE</span>
-    <p class="cover__kicker">Prueba técnica · Aplicación web</p>
-    <h1>Registro de Estudiantes</h1>
-    <p class="cover__lead">Aplicación para el registro en línea de estudiantes en un programa de créditos, con inscripción de materias bajo reglas de negocio garantizadas en interfaz, API y base de datos.</p>
-
-    <div class="stats">
-      <div class="stat"><b>9/9</b><span>reglas del enunciado implementadas</span></div>
-      <div class="stat"><b>3</b><span>capas de validación por regla</span></div>
-      <div class="stat"><b>22</b><span>pruebas automáticas (11 dominio + 11 SQL)</span></div>
-      <div class="stat"><b>1</b><span>comando para instalar y ejecutar</span></div>
-    </div>
-  </div>
-
-  <dl class="cover__meta">
+<div class="head">
+  <h1>Prueba técnica: Registro de Estudiantes</h1>
+  <p>Aplicación web para el registro en línea de estudiantes en un programa de créditos.</p>
+  <dl class="meta">
     <dt>Candidato</dt><dd>Michael Andrés López Cárdenas</dd>
     <dt>Cargo</dt><dd>Ingeniero de Software Senior</dd>
     <dt>Repositorio</dt><dd>https://github.com/mchl27/RegistroEstudiantes</dd>
-    <dt>Tecnologías</dt><dd>.NET 8 · Angular 20 · SQL Server · EF Core · JWT</dd>
+    <dt>Tecnologías</dt><dd>.NET 8, Angular 20, SQL Server</dd>
     <dt>Fecha</dt><dd>Noviembre de 2026</dd>
   </dl>
-</section>
+</div>
 
-<!-- ============================================================ 1 -->
-<h2 class="page-break">1. Resumen</h2>
-<p>Se construyó una aplicación cliente-servidor completa:</p>
+<h2><small>1.</small>Introducción</h2>
+<p>En este documento explico cómo resolví la prueba: qué construí, cómo interpreté los puntos del enunciado que podían leerse de varias formas, las decisiones técnicas que tomé y cómo lo probé.</p>
+<p>La solución tiene tres partes:</p>
 <ul>
-  <li><b>Frontend Angular 20</b>: registro e inicio de sesión, selector de materias agrupado por profesor que impide elegir combinaciones inválidas, vista de mis clases con compañeros, directorio de estudiantes actualizado en línea y gestión del perfil.</li>
-  <li><b>API .NET 8</b> con Clean Architecture, autenticación JWT, validación con FluentValidation y errores estandarizados (ProblemDetails, RFC 7807).</li>
-  <li><b>Base de datos SQL Server</b> creada con scripts versionados. Las reglas críticas (máximo 3 materias, profesores distintos, 3 créditos por materia) están garantizadas con <i>constraints</i> declarativos, seguros ante concurrencia.</li>
-  <li><b>Despliegue en un paso</b>: <code>setup.cmd</code> verifica requisitos, crea la base de datos, verifica las reglas, compila, ejecuta las pruebas y levanta la aplicación.</li>
+  <li>Un <b>frontend en Angular 20</b> donde el estudiante se registra, inscribe sus materias, ve sus clases y compañeros, y consulta el listado de estudiantes.</li>
+  <li>Una <b>API en .NET 8</b> organizada por capas (Domain, Application, Infrastructure y Api), con autenticación JWT.</li>
+  <li>Una <b>base de datos SQL Server</b> creada con scripts, que también hace cumplir las reglas principales.</li>
 </ul>
+<p>La idea que guió el diseño fue validar las reglas en varias capas: la interfaz evita que el usuario se equivoque, la API responde con mensajes claros y la base de datos asegura que los datos queden bien, incluso si llegan dos peticiones al mismo tiempo.</p>
 
-<div class="callout"><b>Idea central del diseño:</b> cada regla se valida en tres capas con propósitos distintos. La <b>interfaz la previene</b> (buena experiencia), la <b>API la explica</b> (mensajes claros y códigos estables) y la <b>base de datos la garantiza</b> (integridad aunque fallen las otras capas o lleguen peticiones simultáneas).</div>
-
-<h2>2. Cómo ejecutar</h2>
+<h2><small>2.</small>Cómo ejecutarlo</h2>
+<p>Requisitos: .NET SDK 8, Node.js 20.19 o superior (o 22 LTS), SQL Server (Express, Developer o LocalDB) y sqlcmd.</p>
 <pre>git clone https://github.com/mchl27/RegistroEstudiantes.git
 cd RegistroEstudiantes
 .\setup.cmd</pre>
-<table>
-  <tr><th style="width:28%">Requisito</th><th>Versión</th></tr>
-  <tr><td>.NET SDK</td><td>8.0 o superior (con runtime ASP.NET Core 8)</td></tr>
-  <tr><td>Node.js</td><td>20.19+ o 22 LTS</td></tr>
-  <tr><td>SQL Server</td><td>Express, Developer o LocalDB con autenticación de Windows (se detecta sola)</td></tr>
-  <tr><td>sqlcmd</td><td>cualquiera (<code>winget install Microsoft.Sqlcmd</code>)</td></tr>
-</table>
-<div class="grid-2">
-  <div class="card">
-    <h3>URLs</h3>
-    <p>Web: <code>http://localhost:4200</code><br>Swagger: <code>http://localhost:5080/swagger</code></p>
-  </div>
-  <div class="card">
-    <h3>Cuentas de demostración</h3>
-    <p><code>ana.garcia@registro.test</code>, <code>luis.martinez@…</code>, <code>sofia.rodriguez@…</code>, <code>mateo.lopez@…</code><br>Contraseña: <code>Demo1234</code></p>
-  </div>
-</div>
-<p class="muted">Opciones: <code>-SqlServer "INSTANCIA"</code>, <code>-ResetDatabase</code>, <code>-NoStart</code>, <code>-SkipTests</code>. El script se probó sobre una copia limpia del repositorio (sin dependencias instaladas): queda listo en unos 20 segundos.</p>
+<p>El script revisa los requisitos, busca la instancia de SQL Server, crea la base de datos, compila, corre las pruebas y abre la aplicación. Si la instancia no se detecta sola, se puede indicar con <code>.\setup.cmd -SqlServer "MI_SERVIDOR"</code>. El README tiene también los pasos para hacerlo manualmente.</p>
+<ul>
+  <li>Aplicación: <code>http://localhost:4200</code></li>
+  <li>API (Swagger): <code>http://localhost:5080/swagger</code></li>
+  <li>Usuarios de prueba: <code>ana.garcia@registro.test</code>, <code>luis.martinez@registro.test</code>, <code>sofia.rodriguez@registro.test</code> y <code>mateo.lopez@registro.test</code>, todos con la contraseña <code>Demo1234</code>.</li>
+</ul>
 
-<!-- ============================================================ 3 -->
-<h2>3. Supuestos e interpretación del enunciado</h2>
-<p>El enunciado deja algunos puntos abiertos. Estas fueron las decisiones, todas documentadas para que sean fáciles de ajustar:</p>
+<h2><small>3.</small>Cómo interpreté el enunciado</h2>
+<p>Algunos puntos se podían entender de más de una manera. Estas fueron mis decisiones:</p>
 <table>
-  <tr><th style="width:34%">Punto abierto</th><th>Decisión</th></tr>
-  <tr><td>«Sólo podrá seleccionar 3 materias»: ¿exactamente o máximo?</td><td><b>Exactamente 3</b> para guardar la inscripción, que completa los 9 créditos del programa. La inscripción se reemplaza de forma atómica.</td></tr>
-  <tr><td>Reglas 8 y 9 parecen contradecirse</td><td><b>Regla 8</b>: directorio con nombre, materias y créditos de cada estudiante. <b>Regla 9</b>: en cada una de <i>mis</i> clases veo solo el <b>nombre</b> de mis compañeros. En ningún caso se exponen correo ni documento de otros estudiantes.</td></tr>
-  <tr><td>Regla 7 con «5 profesores × 2 materias»</td><td>Equivale a «no se pueden tomar las dos materias del mismo profesor». Así se presenta en la interfaz.</td></tr>
-  <tr><td>¿Quién administra materias y profesores?</td><td>Son un catálogo fijo cargado por <code>02_seed.sql</code>. Un módulo de administración queda como mejora futura.</td></tr>
-  <tr><td>«Registro en línea» y CRUD</td><td>Autorregistro con autenticación JWT. Cada estudiante consulta, edita y elimina <b>solo su propio</b> registro.</td></tr>
-  <tr><td>Eliminación de un estudiante</td><td><b>Borrado lógico</b>: se conservan los datos para auditoría, se liberan sus cupos y el correo queda disponible para un nuevo registro.</td></tr>
-  <tr><td>«Ver en línea»</td><td>El directorio se actualiza automáticamente cada 15 segundos mientras está abierto.</td></tr>
+  <tr><th style="width:34%">Punto</th><th>Decisión</th></tr>
+  <tr><td>"Sólo podrá seleccionar 3 materias"</td><td>Lo tomé como exactamente 3 para poder guardar, porque así se completan los 9 créditos del programa.</td></tr>
+  <tr><td>Reglas 8 y 9</td><td>Para la regla 8 hice un listado con el nombre, las materias y los créditos de cada estudiante. Para la regla 9, en cada una de mis clases solo aparece el nombre de los compañeros. En ninguna parte se muestra el correo ni el documento de otra persona.</td></tr>
+  <tr><td>Regla 7</td><td>Como cada profesor dicta 2 materias, la regla equivale a no poder tomar las dos materias del mismo profesor.</td></tr>
+  <tr><td>Materias y profesores</td><td>Los cargué como datos fijos con un script. No hice un módulo para administrarlos.</td></tr>
+  <tr><td>Eliminar un estudiante</td><td>Usé borrado lógico: el registro se marca como eliminado, se liberan sus materias y el correo queda disponible para registrarse de nuevo.</td></tr>
+  <tr><td>"Ver en línea"</td><td>El listado de estudiantes se actualiza solo cada 15 segundos.</td></tr>
 </table>
 
-<!-- ============================================================ 4 -->
-<h2 class="page-break">4. Cumplimiento de requisitos</h2>
+<h2 class="page-break"><small>4.</small>Cómo se cumple cada regla</h2>
 <table>
-  <tr><th style="width:4%">#</th><th style="width:20%">Regla</th><th>Interfaz</th><th>API</th><th>Base de datos</th></tr>
-  <tr><td>1</td><td>CRUD de registro en línea</td><td>Registro, perfil editable, eliminar cuenta con confirmación</td><td><code>POST /auth/register</code>, <code>GET·PUT·DELETE /students/me</code></td><td>Índices únicos filtrados de correo y documento (<code>WHERE IsDeleted = 0</code>)</td></tr>
-  <tr><td>2</td><td>Adhesión al programa de créditos</td><td>Automática al registrarse</td><td><code>AuthService</code></td><td>FK <code>Student → CreditProgram</code></td></tr>
-  <tr><td>3</td><td>10 materias</td><td>Catálogo agrupado por profesor</td><td><code>GET /subjects</code></td><td>Catálogo en <code>02_seed.sql</code></td></tr>
-  <tr><td>4</td><td>3 créditos por materia</td><td>Contador «x/9 créditos»</td><td><code>EnrollmentRules</code></td><td><code>CHECK (Credits = 3)</code></td></tr>
-  <tr><td>5</td><td>Solo 3 materias</td><td>Al llegar a 3, el resto se bloquea</td><td><code>Student.Enroll</code> → 422 <code>enrollment.invalid_count</code></td><td><code>Slot BETWEEN 1 AND 3</code> + <code>UNIQUE (StudentId, Slot)</code></td></tr>
-  <tr><td>6</td><td>5 profesores, 2 materias cada uno</td><td>Una tarjeta por profesor</td><td>Modelo <code>Subject.ProfessorId</code></td><td><code>ProfessorSlot IN (1,2)</code> + <code>UNIQUE (ProfessorId, ProfessorSlot)</code></td></tr>
-  <tr><td>7</td><td>No repetir profesor</td><td>Se bloquea la otra materia del profesor: «Ya tienes una clase con este profesor»</td><td><code>Student.Enroll</code> → 422 <code>enrollment.same_professor</code></td><td><code>UNIQUE (StudentId, ProfessorId)</code> + FK compuesta</td></tr>
-  <tr><td>8</td><td>Ver registros de otros</td><td>Directorio con búsqueda (sin tildes), actualizado en línea</td><td><code>GET /students</code> → <code>PublicStudentDto</code></td><td>—</td></tr>
-  <tr><td>9</td><td>Solo el nombre de los compañeros</td><td>Mis clases</td><td><code>GET /enrollments/me</code> → <code>classmates: string[]</code></td><td>Índice <code>IX_Enrollment_SubjectId</code></td></tr>
+  <tr><th style="width:4%">#</th><th style="width:22%">Regla</th><th>En la aplicación</th><th>En la base de datos</th></tr>
+  <tr><td>1</td><td>Registro en línea (CRUD)</td><td>Registro, edición del perfil y eliminación de la cuenta</td><td>Correo y documento únicos entre estudiantes activos</td></tr>
+  <tr><td>2</td><td>Programa de créditos</td><td>El estudiante queda en el programa al registrarse</td><td>Relación Student → CreditProgram</td></tr>
+  <tr><td>3</td><td>10 materias</td><td>Se muestran agrupadas por profesor</td><td>Se cargan en <code>02_seed.sql</code></td></tr>
+  <tr><td>4</td><td>3 créditos por materia</td><td>Contador de créditos al inscribir</td><td><code>CHECK (Credits = 3)</code></td></tr>
+  <tr><td>5</td><td>Solo 3 materias</td><td>Al elegir 3, las demás se desactivan; la API también lo valida</td><td>Columna Slot de 1 a 3 con <code>UNIQUE (StudentId, Slot)</code></td></tr>
+  <tr><td>6</td><td>5 profesores, 2 materias cada uno</td><td>Una tarjeta por profesor</td><td><code>UNIQUE (ProfessorId, ProfessorSlot)</code></td></tr>
+  <tr><td>7</td><td>No repetir profesor</td><td>Al elegir una materia se desactiva la otra del mismo profesor; la API también lo valida</td><td><code>UNIQUE (StudentId, ProfessorId)</code></td></tr>
+  <tr><td>8</td><td>Ver registros de otros</td><td>Pantalla Directorio, con búsqueda</td><td>—</td></tr>
+  <tr><td>9</td><td>Ver solo el nombre de los compañeros</td><td>Pantalla Mis clases</td><td>—</td></tr>
 </table>
 
-<!-- ============================================================ 5 -->
-<h2>5. Arquitectura</h2>
+<h2><small>5.</small>Arquitectura</h2>
 <svg class="diagram" viewBox="0 0 760 210" role="img" aria-label="Diagrama de arquitectura">
   <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5f6775"/></marker></defs>
-  <rect x="0" y="62" width="130" height="80" rx="10" fill="#fff1e8" stroke="#e8590c"/>
-  <text x="65" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#1b1f27">Angular 20</text>
-  <text x="65" y="112" text-anchor="middle" font-size="10" fill="#5f6775">puerto 4200</text>
-  <text x="65" y="126" text-anchor="middle" font-size="10" fill="#5f6775">signals · guards</text>
+  <rect x="0" y="62" width="130" height="80" rx="8" fill="#fff" stroke="#9aa1ad"/>
+  <text x="65" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#1f232b">Angular 20</text>
+  <text x="65" y="116" text-anchor="middle" font-size="10" fill="#5f6775">puerto 4200</text>
   <line x1="132" y1="102" x2="186" y2="102" stroke="#5f6775" stroke-width="1.5" marker-end="url(#arr)"/>
-  <text x="159" y="94" text-anchor="middle" font-size="9" fill="#5f6775">JSON + JWT</text>
-  <rect x="190" y="10" width="420" height="190" rx="10" fill="#f5f6f8" stroke="#c9ced8"/>
-  <text x="400" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#5f6775">API .NET 8 · puerto 5080</text>
-  <rect x="205" y="45" width="120" height="58" rx="8" fill="#fff" stroke="#c9ced8"/>
-  <text x="265" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1f27">Api</text>
-  <text x="265" y="87" text-anchor="middle" font-size="9" fill="#5f6775">Controllers · JWT</text>
-  <rect x="340" y="45" width="120" height="58" rx="8" fill="#fff" stroke="#c9ced8"/>
-  <text x="400" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1f27">Application</text>
-  <text x="400" y="87" text-anchor="middle" font-size="9" fill="#5f6775">Servicios · DTOs · puertos</text>
-  <rect x="475" y="45" width="120" height="58" rx="8" fill="#fff1e8" stroke="#e8590c"/>
-  <text x="535" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1f27">Domain</text>
-  <text x="535" y="87" text-anchor="middle" font-size="9" fill="#5f6775">Entidades · reglas</text>
+  <text x="159" y="94" text-anchor="middle" font-size="9" fill="#5f6775">HTTP + JWT</text>
+  <rect x="190" y="10" width="420" height="190" rx="8" fill="#f5f6f8" stroke="#c9ced8"/>
+  <text x="400" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#5f6775">API .NET 8 (puerto 5080)</text>
+  <rect x="205" y="45" width="120" height="58" rx="6" fill="#fff" stroke="#c9ced8"/>
+  <text x="265" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1f232b">Api</text>
+  <text x="265" y="88" text-anchor="middle" font-size="9" fill="#5f6775">controladores</text>
+  <rect x="340" y="45" width="120" height="58" rx="6" fill="#fff" stroke="#c9ced8"/>
+  <text x="400" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1f232b">Application</text>
+  <text x="400" y="88" text-anchor="middle" font-size="9" fill="#5f6775">servicios y validaciones</text>
+  <rect x="475" y="45" width="120" height="58" rx="6" fill="#fff" stroke="#d9480f"/>
+  <text x="535" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1f232b">Domain</text>
+  <text x="535" y="88" text-anchor="middle" font-size="9" fill="#5f6775">entidades y reglas</text>
   <line x1="325" y1="74" x2="338" y2="74" stroke="#5f6775" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="460" y1="74" x2="473" y2="74" stroke="#5f6775" stroke-width="1.5" marker-end="url(#arr)"/>
-  <rect x="340" y="128" width="120" height="58" rx="8" fill="#fff" stroke="#c9ced8"/>
-  <text x="400" y="153" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1f27">Infrastructure</text>
-  <text x="400" y="170" text-anchor="middle" font-size="9" fill="#5f6775">EF Core · repositorios</text>
+  <rect x="340" y="128" width="120" height="58" rx="6" fill="#fff" stroke="#c9ced8"/>
+  <text x="400" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="#1f232b">Infrastructure</text>
+  <text x="400" y="171" text-anchor="middle" font-size="9" fill="#5f6775">EF Core</text>
   <line x1="400" y1="128" x2="400" y2="105" stroke="#5f6775" stroke-width="1.5" marker-end="url(#arr)"/>
-  <text x="408" y="120" font-size="8.5" fill="#5f6775">implementa puertos</text>
-  <line x1="612" y1="157" x2="648" y2="157" stroke="#5f6775" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="460" y1="157" x2="612" y2="157" stroke="#5f6775" stroke-width="1.5"/>
-  <rect x="652" y="117" width="108" height="80" rx="10" fill="#fff" stroke="#1b1f27"/>
-  <text x="706" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1f27">SQL Server</text>
-  <text x="706" y="167" text-anchor="middle" font-size="9" fill="#5f6775">constraints</text>
-  <text x="706" y="180" text-anchor="middle" font-size="9" fill="#5f6775">= garantía final</text>
+  <line x1="612" y1="157" x2="648" y2="157" stroke="#5f6775" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="652" y="117" width="108" height="80" rx="8" fill="#fff" stroke="#9aa1ad"/>
+  <text x="706" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#1f232b">SQL Server</text>
 </svg>
-<p class="muted" style="text-align:center;font-size:9pt">Las flechas indican dependencias. El dominio no depende de nada; la infraestructura implementa las interfaces que define la aplicación.</p>
+<p>Las flechas indican qué capa depende de cuál. El dominio no depende de ninguna otra; Infrastructure implementa las interfaces que define Application.</p>
+<ul>
+  <li><b>Domain</b>: las entidades. La regla de inscripción está en <code>Student.Enroll</code>. Las propiedades no se pueden modificar desde fuera; los cambios pasan por métodos que validan.</li>
+  <li><b>Application</b>: los casos de uso (registro, inscripción, perfil), los DTOs y las validaciones de formato con FluentValidation.</li>
+  <li><b>Infrastructure</b>: el acceso a datos con EF Core, las transacciones y el hash de contraseñas.</li>
+  <li><b>Api</b>: los controladores, la autenticación JWT y un manejador central de errores.</li>
+</ul>
+<p>En Angular organicé el código por funcionalidad (una carpeta por pantalla), usé signals para el estado, un interceptor para agregar el token y guards para proteger las rutas.</p>
 
-<table>
-  <tr><th style="width:20%">Proyecto</th><th>Responsabilidad</th></tr>
-  <tr><td><b>Domain</b></td><td>Entidades con <b>modelo rico</b>: sin <i>setters</i> públicos; los cambios pasan por métodos que validan (<code>Student.Enroll</code>, <code>UpdateProfile</code>, <code>Delete</code>). <code>Student</code> es el <i>aggregate root</i> de sus inscripciones.</td></tr>
-  <tr><td><b>Application</b></td><td>Casos de uso (<code>AuthService</code>, <code>EnrollmentService</code>…), DTOs, validadores FluentValidation e interfaces (puertos) de repositorios, unidad de trabajo, hash y tokens.</td></tr>
-  <tr><td><b>Infrastructure</b></td><td>EF Core mapeado a los scripts (sin migraciones), repositorios, transacciones y traducción de errores de SQL Server a mensajes de negocio. PBKDF2 para contraseñas.</td></tr>
-  <tr><td><b>Api</b></td><td>Controladores delgados (sin try/catch), JWT, <code>GlobalExceptionHandler</code> → ProblemDetails, Swagger con autenticación, CORS.</td></tr>
-  <tr><td><b>Web</b></td><td>Angular 20 standalone con <i>lazy loading</i>, estado con <b>signals</b> y <code>computed</code>, interceptor JWT funcional, guards y formularios reactivos con las mismas reglas que el backend.</td></tr>
-</table>
-
-<!-- ============================================================ 6 -->
-<h2 class="page-break">6. Modelo de datos</h2>
-<svg class="diagram" viewBox="0 0 760 250" role="img" aria-label="Modelo entidad-relación">
-  <g font-size="10">
-    <!-- CreditProgram -->
-    <rect x="0" y="20" width="135" height="85" rx="6" fill="#fff" stroke="#c9ced8"/>
-    <rect x="0" y="20" width="135" height="24" rx="6" fill="#14161b"/><rect x="0" y="36" width="135" height="8" fill="#14161b"/>
-    <text x="67" y="37" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">CreditProgram</text>
-    <text x="8" y="60" fill="#1b1f27"><tspan font-weight="700" fill="#e8590c">PK</tspan> Id</text>
-    <text x="8" y="76" fill="#1b1f27">Name</text>
-    <text x="8" y="92" fill="#1b1f27">Description</text>
-    <!-- Student -->
-    <rect x="155" y="20" width="145" height="180" rx="6" fill="#fff" stroke="#c9ced8"/>
-    <rect x="155" y="20" width="145" height="24" rx="6" fill="#14161b"/><rect x="155" y="36" width="145" height="8" fill="#14161b"/>
-    <text x="227" y="37" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Student</text>
-    <text x="163" y="60"><tspan font-weight="700" fill="#e8590c">PK</tspan> Id (identity)</text>
-    <text x="163" y="76"><tspan font-weight="700" fill="#1d5fbf">FK</tspan> CreditProgramId</text>
-    <text x="163" y="92">FirstName · LastName</text>
-    <text x="163" y="108"><tspan font-weight="700" fill="#138a52">UQ*</tspan> DocumentNumber</text>
-    <text x="163" y="124"><tspan font-weight="700" fill="#138a52">UQ*</tspan> Email</text>
-    <text x="163" y="140">PasswordHash</text>
-    <text x="163" y="156">IsDeleted</text>
-    <text x="163" y="172">CreatedAt · UpdatedAt</text>
-    <text x="163" y="190" fill="#5f6775" font-size="8.5">* único solo entre activos</text>
-    <!-- Enrollment -->
-    <rect x="320" y="20" width="150" height="150" rx="6" fill="#fff1e8" stroke="#e8590c"/>
-    <rect x="320" y="20" width="150" height="24" rx="6" fill="#e8590c"/><rect x="320" y="36" width="150" height="8" fill="#e8590c"/>
-    <text x="395" y="37" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Enrollment</text>
-    <text x="328" y="60"><tspan font-weight="700" fill="#e8590c">PK</tspan> StudentId <tspan font-weight="700" fill="#1d5fbf">FK</tspan></text>
-    <text x="328" y="76"><tspan font-weight="700" fill="#e8590c">PK</tspan> SubjectId <tspan font-weight="700" fill="#1d5fbf">FK*</tspan></text>
-    <text x="328" y="92"><tspan font-weight="700" fill="#1d5fbf">FK*</tspan> ProfessorId</text>
-    <text x="328" y="108">Slot <tspan fill="#5f6775">(1 a 3)</tspan></text>
-    <text x="328" y="124">EnrolledAt</text>
-    <text x="328" y="144" fill="#c2410c" font-size="8.5" font-weight="700">UQ (StudentId, Slot)</text>
-    <text x="328" y="158" fill="#c2410c" font-size="8.5" font-weight="700">UQ (StudentId, ProfessorId)</text>
-    <!-- Subject -->
-    <rect x="490" y="20" width="135" height="150" rx="6" fill="#fff" stroke="#c9ced8"/>
-    <rect x="490" y="20" width="135" height="24" rx="6" fill="#14161b"/><rect x="490" y="36" width="135" height="8" fill="#14161b"/>
-    <text x="557" y="37" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Subject</text>
-    <text x="498" y="60"><tspan font-weight="700" fill="#e8590c">PK</tspan> Id</text>
-    <text x="498" y="76"><tspan font-weight="700" fill="#138a52">UQ</tspan> Code</text>
-    <text x="498" y="92">Name · Description</text>
-    <text x="498" y="108">Credits <tspan fill="#5f6775">(= 3)</tspan></text>
-    <text x="498" y="124"><tspan font-weight="700" fill="#1d5fbf">FK</tspan> ProfessorId</text>
-    <text x="498" y="140">ProfessorSlot <tspan fill="#5f6775">(1 o 2)</tspan></text>
-    <text x="498" y="158" fill="#5f6775" font-size="8.5">UQ (Id, ProfessorId)</text>
-    <!-- Professor -->
-    <rect x="645" y="20" width="115" height="70" rx="6" fill="#fff" stroke="#c9ced8"/>
-    <rect x="645" y="20" width="115" height="24" rx="6" fill="#14161b"/><rect x="645" y="36" width="115" height="8" fill="#14161b"/>
-    <text x="702" y="37" text-anchor="middle" fill="#fff" font-weight="700" font-size="11">Professor</text>
-    <text x="653" y="60"><tspan font-weight="700" fill="#e8590c">PK</tspan> Id</text>
-    <text x="653" y="76">FullName</text>
+<h2 class="page-break"><small>6.</small>Base de datos</h2>
+<svg class="diagram" viewBox="0 0 760 230" role="img" aria-label="Modelo de datos">
+  <g font-size="10" fill="#1f232b">
+    <rect x="0" y="20" width="135" height="85" rx="5" fill="#fff" stroke="#9aa1ad"/>
+    <text x="67" y="38" text-anchor="middle" font-weight="700" font-size="11">CreditProgram</text>
+    <line x1="0" y1="45" x2="135" y2="45" stroke="#c9ced8"/>
+    <text x="8" y="62">Id (PK)</text><text x="8" y="78">Name</text><text x="8" y="94">Description</text>
+    <rect x="155" y="20" width="145" height="170" rx="5" fill="#fff" stroke="#9aa1ad"/>
+    <text x="227" y="38" text-anchor="middle" font-weight="700" font-size="11">Student</text>
+    <line x1="155" y1="45" x2="300" y2="45" stroke="#c9ced8"/>
+    <text x="163" y="62">Id (PK)</text><text x="163" y="78">CreditProgramId (FK)</text><text x="163" y="94">FirstName, LastName</text>
+    <text x="163" y="110">DocumentNumber</text><text x="163" y="126">Email</text><text x="163" y="142">PasswordHash</text>
+    <text x="163" y="158">IsDeleted</text><text x="163" y="174">CreatedAt, UpdatedAt</text>
+    <rect x="320" y="20" width="150" height="150" rx="5" fill="#fff" stroke="#d9480f"/>
+    <text x="395" y="38" text-anchor="middle" font-weight="700" font-size="11">Enrollment</text>
+    <line x1="320" y1="45" x2="470" y2="45" stroke="#f0c2a8"/>
+    <text x="328" y="62">StudentId (PK, FK)</text><text x="328" y="78">SubjectId (PK, FK)</text><text x="328" y="94">ProfessorId (FK)</text>
+    <text x="328" y="110">Slot (1 a 3)</text><text x="328" y="126">EnrolledAt</text>
+    <text x="328" y="146" font-size="8.5" fill="#b53c0b">UNIQUE (StudentId, Slot)</text>
+    <text x="328" y="160" font-size="8.5" fill="#b53c0b">UNIQUE (StudentId, ProfessorId)</text>
+    <rect x="490" y="20" width="135" height="150" rx="5" fill="#fff" stroke="#9aa1ad"/>
+    <text x="557" y="38" text-anchor="middle" font-weight="700" font-size="11">Subject</text>
+    <line x1="490" y1="45" x2="625" y2="45" stroke="#c9ced8"/>
+    <text x="498" y="62">Id (PK)</text><text x="498" y="78">Code</text><text x="498" y="94">Name, Description</text>
+    <text x="498" y="110">Credits (= 3)</text><text x="498" y="126">ProfessorId (FK)</text><text x="498" y="142">ProfessorSlot (1 o 2)</text>
+    <rect x="645" y="20" width="115" height="70" rx="5" fill="#fff" stroke="#9aa1ad"/>
+    <text x="702" y="38" text-anchor="middle" font-weight="700" font-size="11">Professor</text>
+    <line x1="645" y1="45" x2="760" y2="45" stroke="#c9ced8"/>
+    <text x="653" y="62">Id (PK)</text><text x="653" y="78">FullName</text>
   </g>
   <g stroke="#5f6775" stroke-width="1.3" fill="none">
-    <line x1="135" y1="72" x2="155" y2="72"/>
-    <line x1="300" y1="58" x2="320" y2="58"/>
-    <path d="M490 72 H480 V84 H470"/>
-    <line x1="645" y1="58" x2="625" y2="58"/>
+    <line x1="135" y1="72" x2="155" y2="72"/><line x1="300" y1="58" x2="320" y2="58"/>
+    <path d="M490 72 H480 V84 H470"/><line x1="645" y1="58" x2="625" y2="58"/>
   </g>
-  <g font-size="9" fill="#5f6775">
-    <text x="137" y="67">1</text><text x="146" y="67">N</text>
-    <text x="302" y="53">1</text><text x="311" y="53">N</text>
-    <text x="476" y="98">N</text><text x="483" y="67">1</text>
-    <text x="638" y="53">1</text><text x="627" y="53">N</text>
-  </g>
-  <text x="0" y="222" font-size="9.5" fill="#1b1f27"><tspan font-weight="700" fill="#1d5fbf">FK*</tspan> = llave foránea compuesta (SubjectId, ProfessorId) → Subject(Id, ProfessorId): el profesor guardado siempre corresponde a la materia.</text>
-  <text x="0" y="240" font-size="9.5" fill="#1b1f27">Las restricciones en naranja garantizan las reglas 5 y 7 sin triggers y sin condiciones de carrera.</text>
+  <text x="0" y="214" font-size="9.5" fill="#5f6775">La FK de Enrollment hacia Subject es compuesta: (SubjectId, ProfessorId) → Subject(Id, ProfessorId).</text>
 </svg>
+<p>Hay cuatro detalles del modelo que vale la pena explicar:</p>
+<ol>
+  <li><b>Máximo 3 materias.</b> Cada inscripción ocupa un "slot" del 1 al 3, y la combinación estudiante-slot es única. Así no puede existir una cuarta materia. Preferí esto a un trigger que cuente las inscripciones, porque con dos peticiones al mismo tiempo el conteo podría fallar; el UNIQUE lo resuelve SQL Server.</li>
+  <li><b>No repetir profesor.</b> Guardo también el profesor en la inscripción para poder poner <code>UNIQUE (StudentId, ProfessorId)</code>. Para que ese dato no quede distinto al de la materia, la llave foránea es compuesta: la pareja materia-profesor tiene que existir en Subject.</li>
+  <li><b>2 materias por profesor.</b> Con la misma idea de los slots: <code>ProfessorSlot</code> 1 o 2 y único por profesor.</li>
+  <li><b>Correo único.</b> Los índices de correo y documento son filtrados (<code>WHERE IsDeleted = 0</code>), para que un estudiante eliminado no bloquee su correo.</li>
+</ol>
+<p>Scripts: <code>01_schema.sql</code> crea las tablas, <code>02_seed.sql</code> carga el programa, los profesores y las materias (se puede ejecutar varias veces), y <code>03_verify_rules.sql</code> intenta romper cada regla dentro de una transacción que al final se deshace, así que no deja datos.</p>
 
-<h3>Decisiones clave del modelo</h3>
-<div class="grid-2">
-  <div class="card">
-    <h3>Los «slots» (regla 5)</h3>
-    <p>En lugar de contar con un trigger (<code>COUNT(*) &gt; 3</code>, vulnerable a peticiones simultáneas), cada inscripción ocupa un <i>slot</i> 1, 2 o 3 con <code>UNIQUE (StudentId, Slot)</code>. Como solo existen 3 slots, es <b>imposible</b> tener una cuarta materia. La regla es declarativa y atómica.</p>
-  </div>
-  <div class="card">
-    <h3>Desnormalización controlada (regla 7)</h3>
-    <p><code>Enrollment.ProfessorId</code> repite el dato de la materia para poder aplicar <code>UNIQUE (StudentId, ProfessorId)</code>. El riesgo de inconsistencia se elimina con la <b>FK compuesta</b> hacia <code>Subject(Id, ProfessorId)</code>: la combinación tiene que existir.</p>
-  </div>
-  <div class="card">
-    <h3>Regla 6 en el catálogo</h3>
-    <p><code>ProfessorSlot IN (1,2)</code> + <code>UNIQUE (ProfessorId, ProfessorSlot)</code>: ningún profesor puede tener una tercera materia.</p>
-  </div>
-  <div class="card">
-    <h3>Borrado lógico</h3>
-    <p>Índices únicos <b>filtrados</b> (<code>WHERE IsDeleted = 0</code>): un correo queda libre cuando su dueño elimina la cuenta. EF Core aplica un <i>query filter</i> global que oculta los eliminados.</p>
-  </div>
-</div>
-<p class="muted">Scripts: <code>01_schema.sql</code> (esquema), <code>02_seed.sql</code> (catálogo, idempotente) y <code>03_verify_rules.sql</code> (pruebas de reglas dentro de una transacción con ROLLBACK).</p>
-
-<!-- ============================================================ 7 -->
-<h2 class="page-break">7. API</h2>
+<h2 class="page-break"><small>7.</small>API</h2>
 <table>
-  <tr><th style="width:16%">Método</th><th style="width:30%">Ruta</th><th style="width:10%">Auth</th><th>Descripción</th></tr>
-  <tr><td>POST</td><td><code>/api/auth/register</code></td><td>—</td><td>Registro del estudiante (201 + JWT)</td></tr>
-  <tr><td>POST</td><td><code>/api/auth/login</code></td><td>—</td><td>Inicio de sesión</td></tr>
-  <tr><td>GET</td><td><code>/api/subjects</code></td><td>—</td><td>Catálogo con profesor y número de inscritos</td></tr>
-  <tr><td>GET · PUT · DELETE</td><td><code>/api/students/me</code></td><td>JWT</td><td>CRUD del propio registro</td></tr>
-  <tr><td>GET</td><td><code>/api/students</code></td><td>JWT</td><td>Directorio (regla 8)</td></tr>
-  <tr><td>GET</td><td><code>/api/enrollments/me</code></td><td>JWT</td><td>Mis clases y compañeros (regla 9)</td></tr>
-  <tr><td>PUT</td><td><code>/api/enrollments/me</code></td><td>JWT</td><td>Reemplaza la inscripción: exactamente 3 materias</td></tr>
+  <tr><th style="width:17%">Método</th><th style="width:30%">Ruta</th><th style="width:10%">Auth</th><th>Uso</th></tr>
+  <tr><td>POST</td><td><code>/api/auth/register</code></td><td>No</td><td>Registro</td></tr>
+  <tr><td>POST</td><td><code>/api/auth/login</code></td><td>No</td><td>Inicio de sesión</td></tr>
+  <tr><td>GET</td><td><code>/api/subjects</code></td><td>No</td><td>Materias con su profesor</td></tr>
+  <tr><td>GET, PUT, DELETE</td><td><code>/api/students/me</code></td><td>Sí</td><td>Ver, editar o eliminar mi registro</td></tr>
+  <tr><td>GET</td><td><code>/api/students</code></td><td>Sí</td><td>Listado de estudiantes</td></tr>
+  <tr><td>GET</td><td><code>/api/enrollments/me</code></td><td>Sí</td><td>Mis clases y compañeros</td></tr>
+  <tr><td>PUT</td><td><code>/api/enrollments/me</code></td><td>Sí</td><td>Inscribir las 3 materias</td></tr>
 </table>
-
-<h3>Errores estandarizados (ProblemDetails, RFC 7807)</h3>
-<table>
-  <tr><th style="width:10%">HTTP</th><th style="width:32%">Significado</th><th>Ejemplo de <code>code</code></th></tr>
-  <tr><td>400</td><td>Formato inválido (FluentValidation)</td><td><code>validation</code> + errores por campo en español</td></tr>
-  <tr><td>401</td><td>Credenciales o token inválidos</td><td><code>auth.invalid_credentials</code></td></tr>
-  <tr><td>404</td><td>Recurso inexistente</td><td><code>subject.not_found</code>, <code>student.not_found</code></td></tr>
-  <tr><td>409</td><td>Conflicto con datos existentes</td><td><code>student.email_taken</code>, <code>student.document_taken</code></td></tr>
-  <tr><td>422</td><td>Regla de negocio incumplida</td><td><code>enrollment.same_professor</code>, <code>enrollment.invalid_count</code></td></tr>
-</table>
+<p>Los errores se devuelven en formato ProblemDetails con un campo <code>code</code>. Uso 400 para datos con formato inválido, 401 para credenciales o token inválidos, 404 cuando algo no existe, 409 cuando choca con datos existentes (por ejemplo, un correo ya registrado) y 422 cuando los datos están bien pero incumplen una regla. Ejemplo:</p>
 <pre>PUT /api/enrollments/me   { "subjectIds": [1, 2, 7] }
 
-HTTP/1.1 422 Unprocessable Entity
-{ "title": "Regla de negocio incumplida", "status": 422,
-  "detail": "No puedes tomar dos materias con el mismo profesor (Carlos Ramírez).",
-  "code": "enrollment.same_professor" }</pre>
+422 { "title": "Regla de negocio incumplida",
+      "detail": "No puedes tomar dos materias con el mismo profesor (Carlos Ramírez).",
+      "code": "enrollment.same_professor" }</pre>
 
-<h2>8. Seguridad y privacidad</h2>
+<h2><small>8.</small>Seguridad</h2>
 <ul>
-  <li><b>Contraseñas</b> con PBKDF2 y sal aleatoria (<code>PasswordHasher</code> de ASP.NET Core Identity). Nunca se almacenan ni se devuelven en texto plano.</li>
-  <li><b>JWT</b> firmado con HMAC-SHA256; se validan emisor, audiencia, firma y expiración. La API <b>no arranca</b> si la clave tiene menos de 32 caracteres. En producción se configura con la variable de entorno <code>Jwt__Key</code>.</li>
-  <li><b>Login sin enumeración de usuarios</b>: se devuelve el mismo error si el correo no existe o si la contraseña es incorrecta.</li>
-  <li><b>Privacidad por diseño</b>: los DTOs públicos (<code>PublicStudentDto</code>, <code>classmates</code>) <b>no contienen</b> correo ni documento. Esos datos no salen del servidor, no se trata solo de ocultarlos en la interfaz.</li>
-  <li><b>Autorización por identidad</b>: los endpoints <code>/me</code> toman el id del token (<code>sub</code>), nunca del cliente. Un estudiante no puede modificar a otro.</li>
-  <li>El frontend cierra la sesión automáticamente ante un 401 y protege sus rutas con guards.</li>
+  <li>Las contraseñas se guardan con hash (PBKDF2, el de ASP.NET Core Identity).</li>
+  <li>El token JWT se valida en cada petición. Las rutas <code>/me</code> toman el id del estudiante del token, así que nadie puede modificar a otro.</li>
+  <li>Si el login falla, el mensaje es el mismo cuando el correo no existe y cuando la contraseña está mal.</li>
+  <li>El listado y la vista de compañeros usan DTOs que no incluyen correo ni documento.</li>
+  <li>La clave del JWT no va en el repositorio para producción; se configura con una variable de entorno.</li>
 </ul>
 
-<!-- ============================================================ 9 -->
-<h2 class="page-break">9. Calidad y pruebas</h2>
-<h3>Pruebas automáticas</h3>
-<div class="grid-2">
-  <div class="card">
-    <h3>Dominio · xUnit <span class="ok">11/11</span></h3>
-    <ul>
-      <li>3 materias con profesores distintos → 9 créditos, slots 1-2-3</li>
-      <li>1, 2 o 4 materias → <code>invalid_count</code></li>
-      <li>Dos materias del mismo profesor → <code>same_professor</code></li>
-      <li>Materia repetida → <code>duplicate_subject</code></li>
-      <li>Reinscribir reemplaza la inscripción anterior</li>
-      <li>Borrado lógico libera cupos y bloquea cambios</li>
-      <li>Normalización de correo y campos obligatorios</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Base de datos · SQL <span class="ok">11/11</span></h3>
-    <ul>
-      <li>Caso válido aceptado (2 estudiantes)</li>
-      <li>4.ª materia (slot 4 o repetido) → rechazada</li>
-      <li>Dos materias del mismo profesor → rechazada</li>
-      <li>Materia duplicada → rechazada</li>
-      <li>Profesor falso para la materia → rechazado (FK compuesta)</li>
-      <li>Créditos ≠ 3 y 3.ª materia de un profesor → rechazados</li>
-      <li>Correo duplicado rechazado; reutilizable tras borrado lógico</li>
-    </ul>
-  </div>
-</div>
-<p class="muted"><code>setup.ps1</code> ejecuta ambos conjuntos en cada instalación y se detiene si alguno falla.</p>
+<h2 class="page-break"><small>9.</small>Pruebas</h2>
+<ul>
+  <li><b>11 pruebas unitarias</b> (xUnit) sobre la regla de inscripción: caso válido, cantidad incorrecta, profesor repetido, materia repetida, reinscripción y borrado.</li>
+  <li><b>11 pruebas en SQL</b> (<code>03_verify_rules.sql</code>) que confirman que la base de datos rechaza cada caso inválido y acepta los válidos.</li>
+  <li><b>Pruebas manuales</b> del flujo completo en el navegador: registro, inscripción, mis clases, listado, edición del perfil, eliminación de la cuenta e intento de ingresar con la cuenta eliminada. También revisé la aplicación en distintos tamaños de pantalla, incluido el celular.</li>
+</ul>
+<h3>Problemas que encontré al probar</h3>
+<ul>
+  <li>En Swagger, un error de regla de negocio respondía con estado 422 pero con un cuerpo de error 500. La causa era que Swagger pedía <code>text/plain</code> y el manejador de errores solo escribía JSON. Lo corregí para que siempre responda el error real en JSON.</li>
+  <li>En el formulario de registro, el campo Apellido se salía de la tarjeta en pantallas medianas. Era un tema del grid de CSS con el ancho mínimo de los inputs.</li>
+  <li>En el celular, el último enlace del menú quedaba cortado. Ajusté los tamaños.</li>
+  <li>El script de instalación se saltaba la compilación cuando había otra API ejecutándose. Lo encontré al probarlo sobre una copia limpia del repositorio.</li>
+</ul>
 
-<h3>Pruebas funcionales de punta a punta (navegador)</h3>
-<table>
-  <tr><th style="width:5%">#</th><th>Escenario</th><th style="width:12%">Resultado</th></tr>
-  <tr><td>1</td><td>Registro de un estudiante nuevo → entra a Inscripción con 0/9 créditos</td><td class="ok">OK</td></tr>
-  <tr><td>2</td><td>Elegir una materia bloquea la otra del mismo profesor; con 3 se bloquean las 7 restantes</td><td class="ok">OK</td></tr>
-  <tr><td>3</td><td>Guardar inscripción → aparece en Mis clases con compañeros y en el Directorio con «Tú»</td><td class="ok">OK</td></tr>
-  <tr><td>4</td><td>El directorio no expone ningún correo (privacidad)</td><td class="ok">OK</td></tr>
-  <tr><td>5</td><td>Editar perfil; correo ya usado → error bajo el campo</td><td class="ok">OK</td></tr>
-  <tr><td>6</td><td>Eliminar cuenta → los compañeros dejan de verlo y no puede iniciar sesión</td><td class="ok">OK</td></tr>
-  <tr><td>7</td><td>Ruta protegida sin sesión → redirige al login</td><td class="ok">OK</td></tr>
-  <tr><td>8</td><td>Sin desbordes ni scroll horizontal a 1280, 1024, 820, 375 y 320 px (medición automática)</td><td class="ok">OK</td></tr>
-</table>
-
-<h3>Incidencias detectadas en las pruebas y corregidas</h3>
-<table>
-  <tr><th style="width:32%">Hallazgo</th><th>Causa y corrección</th></tr>
-  <tr><td>Swagger mostraba HTTP 422 con cuerpo de error 500</td><td>Swagger envía <code>Accept: text/plain</code> y el escritor de ProblemDetails no lo soportaba. Se respondió siempre en JSON y se declaró <code>Produces("application/json")</code>. Commit <code>fix(api)</code>.</td></tr>
-  <tr><td>Campo «Apellido» desbordaba la tarjeta (≥ 820 px)</td><td>El ancho intrínseco del <code>&lt;input&gt;</code> impedía encoger la columna de grid. Se usó <code>minmax(0, 1fr)</code> y <code>min-width: 0</code>. Commit <code>fix(web)</code>.</td></tr>
-  <tr><td>El instalador omitía la compilación si había otra API corriendo</td><td>Detectado al probar sobre una copia limpia. Ahora siempre compila y solo reutiliza binarios si están bloqueados.</td></tr>
-</table>
-
-<!-- ============================================================ 10 -->
-<h2 class="page-break">10. Capturas de pantalla</h2>
-<figure><img src="img/inscripcion.png" alt="Inscripción de materias"><figcaption>Inscripción: materias agrupadas por profesor, bloqueo por profesor y por límite, contador de créditos.</figcaption></figure>
+<h2><small>10.</small>Pantallas</h2>
+<figure><img src="img/inscripcion.png" alt="Inscripción de materias"><figcaption>Inscripción de materias. Al tener una materia de un profesor, la otra se desactiva.</figcaption></figure>
 <div class="shots">
-  <figure><img src="img/mis-clases.png" alt="Mis clases"><figcaption>Mis clases: solo los nombres de los compañeros (regla 9).</figcaption></figure>
-  <figure><img src="img/directorio.png" alt="Directorio"><figcaption>Directorio en línea con búsqueda (regla 8).</figcaption></figure>
-  <figure><img src="img/login.png" alt="Inicio de sesión"><figcaption>Inicio de sesión con cuentas de demostración.</figcaption></figure>
-  <figure><img src="img/registro-validacion.png" alt="Registro"><figcaption>Registro con validaciones en español.</figcaption></figure>
-  <figure><img src="img/perfil.png" alt="Perfil"><figcaption>Perfil: editar y eliminar cuenta (CRUD).</figcaption></figure>
-  <figure><img src="img/swagger.png" alt="Swagger"><figcaption>API documentada con Swagger y autenticación JWT.</figcaption></figure>
+  <figure><img src="img/mis-clases.png" alt="Mis clases"><figcaption>Mis clases, con los nombres de los compañeros.</figcaption></figure>
+  <figure><img src="img/directorio.png" alt="Directorio"><figcaption>Listado de estudiantes.</figcaption></figure>
+  <figure><img src="img/login.png" alt="Inicio de sesión"><figcaption>Inicio de sesión.</figcaption></figure>
+  <figure><img src="img/registro-validacion.png" alt="Registro"><figcaption>Registro con validaciones.</figcaption></figure>
+  <figure><img src="img/perfil.png" alt="Perfil"><figcaption>Perfil del estudiante.</figcaption></figure>
+  <figure><img src="img/swagger.png" alt="Swagger"><figcaption>Documentación de la API en Swagger.</figcaption></figure>
 </div>
 <div class="shots shots--mobile">
-  <figure><img src="img/movil-inscripcion.png" alt="Inscripción en móvil"><figcaption>Móvil · Inscripción</figcaption></figure>
-  <figure><img src="img/movil-mis-clases.png" alt="Mis clases en móvil"><figcaption>Móvil · Mis clases</figcaption></figure>
-  <figure><img src="img/login.png" alt="" style="visibility:hidden"></figure>
+  <figure><img src="img/movil-inscripcion.png" alt="Inscripción en celular"><figcaption>Celular: inscripción.</figcaption></figure>
+  <figure><img src="img/movil-mis-clases.png" alt="Mis clases en celular"><figcaption>Celular: mis clases.</figcaption></figure>
 </div>
 
-<!-- ============================================================ 11 -->
-<h2 class="page-break">11. Decisiones técnicas y alternativas descartadas</h2>
-<table>
-  <tr><th style="width:30%">Decisión</th><th>Motivo</th></tr>
-  <tr><td>Scripts SQL como fuente de verdad (sin migraciones EF)</td><td>El enunciado pide scripts explícitamente, y así un DBA puede revisarlos. EF Core solo mapea las tablas.</td></tr>
-  <tr><td>Clean Architecture ligera, sin MediatR/CQRS</td><td>Separa responsabilidades sin ceremonia innecesaria para el tamaño del problema.</td></tr>
-  <tr><td>Inscripción como reemplazo atómico (<code>PUT</code> con 3 materias)</td><td>Evita estados intermedios, es idempotente y se ejecuta en una sola transacción.</td></tr>
-  <tr><td>422 para reglas de negocio</td><td>Distingue «dato mal formado» (400) de «dato válido que incumple una regla».</td></tr>
-  <tr><td>Consultas periódicas (15 s) para «en línea»</td><td>Suficiente para el caso. SignalR queda como mejora si se requiere tiempo real estricto.</td></tr>
-  <tr><td>Servicios concretos sin interfaz</td><td>YAGNI: las interfaces están donde aportan (puertos hacia infraestructura).</td></tr>
-</table>
-
-<h2>12. Mejoras futuras</h2>
+<h2 class="page-break"><small>11.</small>Decisiones y pendientes</h2>
+<p>Algunas decisiones que tomé y por qué:</p>
 <ul>
-  <li>Tests de integración de la API con <code>WebApplicationFactory</code> + Testcontainers (SQL Server real).</li>
-  <li>Cupos máximos por materia y lista de espera.</li>
-  <li>Rol de administrador para gestionar materias, profesores y programas.</li>
-  <li>Notificaciones en tiempo real con SignalR cuando alguien se une a una de mis clases.</li>
-  <li>Contenedores Docker y pipeline CI/CD (build, tests y análisis estático en cada PR).</li>
-  <li>Refresh tokens y bloqueo de cuenta tras intentos fallidos.</li>
+  <li>Usé scripts SQL en lugar de migraciones de EF Core, porque el enunciado pide los scripts y así las restricciones quedan claras para cualquiera que revise la base de datos.</li>
+  <li>Mantuve una arquitectura por capas sencilla, sin MediatR ni CQRS, porque para el tamaño del problema me pareció suficiente.</li>
+  <li>La inscripción se guarda completa en una sola operación (las 3 materias juntas), dentro de una transacción, para no dejar estados a medias.</li>
+  <li>Para "ver en línea" usé una consulta cada 15 segundos en lugar de WebSockets, que para este caso me pareció suficiente.</li>
 </ul>
-
-<h2>13. Entregables</h2>
-<table>
-  <tr><th style="width:38%">Entregable</th><th>Ubicación</th></tr>
-  <tr><td>Aplicación web (cliente)</td><td><code>frontend/</code></td></tr>
-  <tr><td>Servidor (API REST)</td><td><code>backend/</code></td></tr>
-  <tr><td>Scripts de base de datos SQL Server</td><td><code>database/01_schema.sql</code>, <code>02_seed.sql</code>, <code>03_verify_rules.sql</code></td></tr>
-  <tr><td>Instalación y ejecución en un paso</td><td><code>setup.cmd</code> / <code>setup.ps1</code></td></tr>
-  <tr><td>Instrucciones</td><td><code>README.md</code></td></tr>
-  <tr><td>Este documento</td><td><code>docs/Entrega.pdf</code></td></tr>
-</table>
+<p>Lo que haría con más tiempo:</p>
+<ul>
+  <li>Pruebas de integración de la API contra una base de datos real (Testcontainers).</li>
+  <li>Cupos por materia y un rol de administrador para gestionar materias y profesores.</li>
+  <li>Notificaciones en tiempo real con SignalR.</li>
+  <li>Docker y un pipeline de integración continua.</li>
+  <li>Refresh tokens y guardar la sesión en una cookie httpOnly en lugar de localStorage.</li>
+</ul>
 
 </main>
 </body>
