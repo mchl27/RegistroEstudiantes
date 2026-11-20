@@ -10,6 +10,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = session.token();
 
+  // Las peticiones HTTP son inmutables: no se modifican, se clonan con el header extra.
+  // Solo lo agregamos a nuestra API, nunca a otros dominios (no regalar el token).
   const request =
     token && req.url.startsWith('/api/')
       ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
@@ -17,6 +19,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(request).pipe(
     catchError((error: unknown) => {
+      // 401 con token = el token venció o la cuenta fue borrada -> cerramos sesión.
+      // 401 sin token = login con clave incorrecta; ese error lo muestra la pantalla
+      // de login, por eso aquí no redirigimos.
       if (error instanceof HttpErrorResponse && error.status === 401 && token) {
         session.clear();
         router.navigate(['/login'], { queryParams: { expired: 1 } });

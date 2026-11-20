@@ -39,7 +39,11 @@ export class DirectoryPage {
   });
 
   constructor() {
-    // Consulta inmediata y luego cada 15 s mientras la pantalla esté abierta
+    // "En línea" sin WebSockets: consultamos ya (0 ms) y luego cada 15 s.
+    //  - switchMap: si una respuesta tarda más de 15 s, cancela la vieja y usa la nueva.
+    //  - catchError devuelve EMPTY: un error muestra el aviso pero NO mata el timer,
+    //    el siguiente ciclo vuelve a intentar.
+    //  - takeUntilDestroyed: al salir de la pantalla se cancela todo (sin fugas de memoria).
     timer(0, REFRESH_MS)
       .pipe(
         switchMap(() =>

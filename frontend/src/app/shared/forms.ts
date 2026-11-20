@@ -15,6 +15,8 @@ export const profileValidators = {
 export const passwordValidators = [
   Validators.required,
   Validators.minLength(8),
+  // (?=.*[A-Za-z]) = "en algún lugar hay una letra", (?=.*\d) = "en algún lugar hay un número".
+  // Son lookaheads: revisan sin consumir caracteres, por eso el orden no importa.
   Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/),
 ];
 
@@ -24,6 +26,8 @@ export function controlError(
   options: { server?: string; pattern?: string } = {},
 ): string | null {
   if (options.server) return options.server;
+  // Solo mostramos errores de campos que el usuario ya tocó; si no, el formulario
+  // aparecería lleno de mensajes en rojo apenas se abre la pantalla.
   if (!control.touched || control.valid) return null;
 
   const errors = control.errors ?? {};

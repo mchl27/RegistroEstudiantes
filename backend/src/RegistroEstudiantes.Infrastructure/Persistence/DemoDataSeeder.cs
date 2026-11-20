@@ -49,8 +49,11 @@ public sealed class DemoDataSeeder
             .ToList();
 
         _db.Students.AddRange(created.Select(c => c.Entity));
-        await _db.SaveChangesAsync(ct); // genera los Id de los estudiantes
+        // Primer guardado: el Id es IDENTITY, lo genera SQL Server al insertar.
+        // Lo necesitamos antes de inscribir, porque Enroll() usa el Id del estudiante.
+        await _db.SaveChangesAsync(ct);
 
+        // Usamos el mismo Enroll() que la API: los datos demo también pasan por las reglas.
         foreach (var (data, student) in created)
             student.Enroll(data.Subjects.Select(id => subjects[id]).ToList());
 

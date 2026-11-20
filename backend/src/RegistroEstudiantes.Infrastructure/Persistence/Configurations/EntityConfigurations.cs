@@ -61,7 +61,9 @@ internal sealed class StudentConfiguration : IEntityTypeConfiguration<Student>
 
         b.HasOne<CreditProgram>().WithMany().HasForeignKey(x => x.CreditProgramId);
 
-        // EF escribe directamente en el campo privado _enrollments
+        // Student expone Enrollments como solo lectura (IReadOnlyCollection) para que nadie
+        // agregue inscripciones "por fuera" del método Enroll. Con PropertyAccessMode.Field
+        // le decimos a EF que lea y escriba directamente la lista privada _enrollments.
         b.HasMany(x => x.Enrollments).WithOne(e => e.Student).HasForeignKey(e => e.StudentId);
         b.Navigation(x => x.Enrollments).UsePropertyAccessMode(PropertyAccessMode.Field);
 
@@ -78,11 +80,15 @@ internal sealed class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollm
         b.HasKey(x => new { x.StudentId, x.SubjectId });
         b.Property(x => x.EnrolledAt).HasColumnType("datetime2(0)");
 
-        // FK compuesta (SubjectId, ProfessorId) -> Subject(Id, ProfessorId), igual que en el script SQL
+        // FK compuesta (SubjectId, ProfessorId) -> Subject(Id, ProfessorId), igual que en el script SQL.
+        // HasPrincipalKey apunta a la llave alterna UQ_Subject_Id_Professor y no a la PK normal.
+        // Gracias a esto el ProfessorId guardado en Enrollment siempre es el real de la materia.
         b.HasOne(x => x.Subject).WithMany()
             .HasForeignKey(x => new { x.SubjectId, x.ProfessorId })
             .HasPrincipalKey(s => new { s.Id, s.ProfessorId });
 
+        // Mismo filtro que Student: si el estudiante está borrado, sus inscripciones
+        // tampoco aparecen (ni en "compañeros" ni en el conteo de inscritos).
         b.HasQueryFilter(x => !x.Student!.IsDeleted);
     }
 }

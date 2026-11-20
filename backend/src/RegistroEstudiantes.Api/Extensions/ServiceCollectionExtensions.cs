@@ -23,7 +23,9 @@ public static class ServiceCollectionExtensions
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.MapInboundClaims = false; // conserva "sub" tal cual
+                // Por defecto .NET renombra los claims del token ("sub" pasa a ser un nombre
+                // largo de Microsoft). Lo apagamos para leer "sub" tal cual en GetStudentId().
+                options.MapInboundClaims = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -33,6 +35,8 @@ public static class ServiceCollectionExtensions
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key)),
                     ValidateLifetime = true,
+                    // Tolerancia por diferencia de relojes entre servidores. El valor por
+                    // defecto es 5 min; con 1 min el token vence casi a la hora exacta.
                     ClockSkew = TimeSpan.FromMinutes(1),
                     NameClaimType = JwtRegisteredClaimNames.Name
                 };

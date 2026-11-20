@@ -58,6 +58,9 @@ export class EnrollmentPage {
 
   protected readonly credits = computed(() => this.selected().length * CREDITS_PER_SUBJECT);
   protected readonly isComplete = computed(() => this.selected().length === MAX_SUBJECTS);
+  // ¿Hay algo distinto a lo guardado? Comparamos las listas ordenadas como texto
+  // ("1,3,5" vs "1,3,5"), así el orden en que se hizo clic no importa.
+  // El [...] crea una copia: sort() modifica el arreglo y no queremos tocar el signal.
   protected readonly hasChanges = computed(
     () => [...this.selected()].sort().join() !== [...this.saved()].sort().join(),
   );
@@ -71,6 +74,12 @@ export class EnrollmentPage {
     this.load();
   }
 
+  /**
+   * Calcula el estado de cada tarjeta a partir de la selección actual.
+   * No se guarda en ningún lado: como lee el signal selected(), Angular
+   * lo vuelve a evaluar cada vez que el estudiante marca o desmarca algo.
+   * El orden de los if importa: "seleccionada" gana sobre los bloqueos.
+   */
   protected stateOf(subject: Subject): SubjectState {
     const selected = this.selected();
     if (selected.includes(subject.id)) return 'selected';
@@ -123,6 +132,8 @@ export class EnrollmentPage {
   }
 
   private load(): void {
+    // forkJoin lanza las dos peticiones en paralelo y espera a que ambas respondan;
+    // necesitamos el catálogo Y lo que ya tengo inscrito para pintar la pantalla.
     forkJoin({ subjects: this.api.getSubjects(), mine: this.api.getMyEnrollment() }).subscribe({
       next: ({ subjects, mine }) => {
         const ids = mine.classes.map((c) => c.subjectId);

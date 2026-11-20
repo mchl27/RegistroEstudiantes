@@ -59,6 +59,8 @@ public class Student
             throw new DomainException("enrollment.duplicate_subject",
                 "No puedes inscribir la misma materia dos veces.");
 
+        // Agrupamos por profesor: si algún grupo tiene más de una materia,
+        // el estudiante eligió dos clases con la misma persona (regla 7).
         var repeated = subjects.GroupBy(s => s.ProfessorId).FirstOrDefault(g => g.Count() > 1);
         if (repeated is not null)
         {
@@ -67,6 +69,11 @@ public class Student
                 $"No puedes tomar dos materias con el mismo profesor ({professor}).");
         }
 
+        // Todo validado: reemplazamos la inscripción completa.
+        // Cada materia ocupa un "slot" 1, 2 o 3. En la BD hay un UNIQUE (StudentId, Slot)
+        // y un CHECK (Slot 1..3), por eso es imposible guardar una cuarta materia
+        // aunque alguien se salte esta validación. Ordenamos por Id para que el
+        // resultado sea siempre el mismo sin importar el orden en que llegaron.
         _enrollments.Clear();
         byte slot = 1;
         foreach (var subject in subjects.OrderBy(s => s.Id))

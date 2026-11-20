@@ -24,6 +24,10 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
 
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken ct)
     {
+        // Cada tipo de excepción tiene su código HTTP. La diferencia entre 400 y 422:
+        //   400 -> el dato viene mal formado (correo sin @, campo vacío)
+        //   422 -> el dato está bien formado pero rompe una regla (dos materias del mismo profesor)
+        // Lo que no reconocemos cae en 500 y se registra en el log para revisarlo.
         var (status, title, code) = exception switch
         {
             ValidationException => (StatusCodes.Status400BadRequest, "Datos inválidos", "validation"),
@@ -46,6 +50,8 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
 
         problem.Status = status;
         problem.Title = title;
+        // En un 500 NO devolvemos exception.Message: podría filtrar detalles internos
+        // (nombres de tablas, rutas del servidor). El detalle real queda solo en el log.
         problem.Detail = status switch
         {
             StatusCodes.Status500InternalServerError => "Ocurrió un error inesperado.",

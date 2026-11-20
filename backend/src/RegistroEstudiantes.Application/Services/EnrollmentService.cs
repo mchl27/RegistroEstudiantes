@@ -37,7 +37,10 @@ public sealed class EnrollmentService
         var student = await _students.GetByIdAsync(studentId, ct)
             ?? throw new NotFoundException("student.not_found", "Estudiante no encontrado.");
 
-        // Conservamos los duplicados del request para que el dominio los detecte y explique.
+        // Ojo con los duplicados: si llega [1, 1, 5], a la BD le pedimos [1, 5] (Distinct),
+        // pero armamos la lista final respetando lo que envió el cliente -> [S1, S1, S5].
+        // Así el dominio ve el duplicado y responde "materia repetida" y no un confuso
+        // "debes seleccionar 3 materias".
         var found = await _subjects.GetByIdsAsync(request.SubjectIds.Distinct().ToList(), ct);
         var selected = request.SubjectIds
             .Select(id => found.FirstOrDefault(s => s.Id == id)
@@ -48,6 +51,10 @@ public sealed class EnrollmentService
         student.Enroll(selected);
 
         // 2) Persistencia atómica: borrar la inscripción anterior e insertar la nueva.
+        //    Primero el DELETE para liberar los slots 1-2-3 y después el INSERT; si algo
+        //    falla en el medio, la transacción deja todo como estaba.
+        //    No llamamos un "Add" explícito: Enroll() llenó la colección del estudiante
+        //    y EF detecta solo las 3 inscripciones nuevas al hacer SaveChanges.
         await _unitOfWork.ExecuteInTransactionAsync(async () =>
         {
             await _students.DeleteEnrollmentsAsync(studentId, ct);

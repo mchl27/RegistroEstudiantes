@@ -45,6 +45,9 @@ export class SessionStore {
     }
   }
 
+  // Se ejecuta una sola vez al crear el servicio (al abrir o recargar la página).
+  // Si el token guardado ya venció, lo ignoramos: así el usuario va directo al login
+  // en vez de entrar y recibir un 401 en la primera petición.
   private restore(): AuthResponse | null {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
